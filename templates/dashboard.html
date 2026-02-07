@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Receptionist SaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow-2xl p-12 text-white mb-8">
+            <h1 class="text-5xl font-bold mb-4">🤖 Virtual Receptionist SaaS</h1>
+            <p class="text-xl">Türk pazarı için yapay zeka destekli sanal resepsiyon sistemi</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4">Özellikler</h2>
+                <ul class="space-y-2 text-gray-700">
+                    <li>✅ Multi-tenant mimari</li>
+                    <li>✅ Güvenli API key saklama</li>
+                    <li>✅ Özelleştirilebilir bot</li>
+                    <li>✅ Türkçe dil desteği</li>
+                    <li>✅ Admin dashboard</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4">Hızlı Başlangıç</h2>
+                <div class="space-y-3">
+                    <a href="/giris" class="block w-full bg-purple-600 hover:bg-purple-700 text-white text-center font-bold py-3 px-4 rounded transition">
+                        🔐 Yönetim Paneline Giriş
+                    </a>
+                    <a href="/docs" class="block w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center font-bold py-3 px-4 rounded transition">
+                        📖 API Dokümantasyonu
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-purple-600 mb-4">API Endpoints</h2>
+            <div class="space-y-2 text-gray-700">
+                <p><span class="font-mono bg-gray-200 px-2 py-1 rounded">POST /api/chat</span> - Chat completion</p>
+                <p><span class="font-mono bg-gray-200 px-2 py-1 rounded">GET /api/tenants/</span> - List tenants</p>
+                <p><span class="font-mono bg-gray-200 px-2 py-1 rounded">GET /health</span> - Health check</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

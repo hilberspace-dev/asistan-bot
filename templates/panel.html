@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Paneli | Asistan Ayarları</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-purple-600 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Yönetim Paneli</h1>
+            <div class="flex items-center space-x-4">
+                <span>{{ username }}</span>
+                <a href="/cikis" class="bg-purple-800 hover:bg-purple-900 px-4 py-2 rounded transition">Çıkış</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto mt-8 p-6">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-purple-600 mb-4">Hoşgeldiniz, {{ business_name }}!</h2>
+            <p class="text-gray-600 mb-6">Sanal resepsiyon asistanınızı buradan yönetebilirsiniz.</p>
+            
+            {% if success %}
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                {{ success }}
+            </div>
+            {% endif %}
+            
+            {% if error %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                {{ error }}
+            </div>
+            {% endif %}
+            
+            <form action="/ayarlari-kaydet" method="post" class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        OpenAI API Anahtarı
+                    </label>
+                    <input 
+                        type="password" 
+                        name="openai_key" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="sk-..."
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        Bot Talimatları
+                    </label>
+                    <textarea 
+                        name="bot_prompt" 
+                        rows="6"
+                        required
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Örn: Pazar günleri kapalıyız, muayene ücreti 500 TL..."
+                    >{{ system_prompt }}</textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        İşletme Adı
+                    </label>
+                    <input 
+                        type="text" 
+                        name="business_name" 
+                        required
+                        value="{{ business_name }}"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                </div>
+                
+                <button 
+                    type="submit"
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200"
+                >
+                    Ayarları Kaydet
+                </button>
+            </form>
+        </div>
+        
+        <!-- Profile & Security Section -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mt-6">
+            <h3 class="text-2xl font-bold text-purple-600 mb-4">🔐 Hesap Ayarları</h3>
+            <p class="text-gray-600 mb-6">Kullanıcı adınızı ve şifrenizi buradan güncelleyebilirsiniz.</p>
+            
+            <form action="/update-credentials" method="post" class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        Mevcut Şifre <span class="text-red-500">*</span>
+                    </label>
+                    <input 
+                        type="password" 
+                        name="current_password" 
+                        required
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Güvenlik için mevcut şifrenizi girin"
+                    >
+                    <p class="text-xs text-gray-500 mt-1">Değişiklik yapmak için önce mevcut şifrenizi doğrulamalısınız.</p>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        Yeni Kullanıcı Adı
+                    </label>
+                    <input 
+                        type="text" 
+                        name="new_username" 
+                        value="{{ username }}"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Yeni kullanıcı adı (boş bırakırsanız değişmez)"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        Yeni Şifre
+                    </label>
+                    <input 
+                        type="password" 
+                        name="new_password" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Yeni şifre (boş bırakırsanız değişmez)"
+                    >
+                    <p class="text-xs text-gray-500 mt-1">Boş bırakırsanız mevcut şifreniz korunur.</p>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        Yeni Şifre (Tekrar)
+                    </label>
+                    <input 
+                        type="password" 
+                        name="new_password_confirm" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="Yeni şifreyi tekrar girin"
+                    >
+                    <p class="text-xs text-gray-500 mt-1">Şifrenizi doğrulamak için tekrar girin.</p>
+                </div>
+                
+                <button 
+                    type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200"
+                >
+                    Bilgileri Güncelle
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Footer Branding -->
+    <div class="text-center text-xs text-gray-400 mt-10 py-4">
+        © <span id="current-year"></span> AI Asistan Sistemleri. Developed by Virtual Receptionist Team.
+    </div>
+    
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
